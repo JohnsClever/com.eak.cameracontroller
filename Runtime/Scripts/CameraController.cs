@@ -20,7 +20,10 @@ namespace com.eak.cameracontroller
             InitModules();
         }
         abstract protected void InitModules();
-
+        public void SetTargetFollow(Transform newTarget)
+        {
+            targetFollow = newTarget;
+        }
         protected virtual void LateUpdate()
         {
             Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
