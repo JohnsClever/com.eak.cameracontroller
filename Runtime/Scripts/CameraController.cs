@@ -4,31 +4,24 @@ using UnityEngine;
 
 namespace com.eak.cameracontroller
 {
-    public class CameraController : MonoBehaviour
+    public abstract class CameraController : MonoBehaviour
     {
 
-        [SerializeField] CinemachineCamera targetCam;
-        [SerializeField] Transform targetFollow;
-        List<ICamControllable> camControllables = new();
+        [SerializeField] protected CinemachineCamera targetCam;
+        [SerializeField] protected Transform targetFollow;
+        protected List<ICamControllable> camControllables = new();
         // field.
         public CinemachineCamera TargetCam => targetCam;
         public Transform holder => transform;
         public Transform TargetFollow => targetFollow;
 
-        // modules.
-        CameraOrbitalControl orbitalModule;
-        CameraLookAtTargetControl lookAtModule;
-        CameraAvoidObstacles avoidObstaclesModule;
         void Start()
         {
-            orbitalModule = new CameraOrbitalControl();
-            lookAtModule = new CameraLookAtTargetControl(targetFollow);
-            avoidObstaclesModule = new CameraAvoidObstacles(Vector3.up);
-            camControllables.Add(orbitalModule);
-            camControllables.Add(lookAtModule);
-            camControllables.Add(avoidObstaclesModule);
+            InitModules();
         }
-        void LateUpdate()
+        abstract protected void InitModules();
+
+        protected virtual void LateUpdate()
         {
             Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             ProcessAllCameraControls(mouseInput);
@@ -40,6 +33,10 @@ namespace com.eak.cameracontroller
             {
                 camControllable.Process(input, this);
             }
+        }
+        protected void AddModule(ICamControllable module)
+        {
+            camControllables.Add(module);
         }
     }
 }

@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class CameraFollowTarget : MonoBehaviour
+namespace com.eak.cameracontroller
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float smoothSpeed = 0.125f;
-
-    private Vector3 velocity;
-
-    private void LateUpdate()
+    [System.Serializable]
+    public class CameraFollowTarget : ICamControllable
     {
-        if (target == null) return;
+        [SerializeField] private Vector3 offset;
+        [SerializeField] private float smoothSpeed = 0.125f;
 
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
-        transform.position = smoothedPosition;
+        private Vector3 velocity;
+
+        public void Process(Vector2 mouseInput, CameraController camera)
+        {
+            if (camera.TargetFollow == null) return;
+
+            Vector3 desiredPosition = camera.TargetFollow.position + offset;
+            Vector3 smoothedPosition = Vector3.SmoothDamp(camera.transform.position, desiredPosition, ref velocity, smoothSpeed);
+            camera.transform.position = smoothedPosition;
+        }
     }
 }

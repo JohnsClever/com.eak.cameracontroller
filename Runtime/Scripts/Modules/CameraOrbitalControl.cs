@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace com.eak.cameracontroller
 {
+    [System.Serializable]
     public class CameraOrbitalControl : ICamControllable
     {
         float yAxisRotation = 0;

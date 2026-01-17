@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace com.eak.cameracontroller
 {
+    [System.Serializable]
     public class CameraAvoidObstacles : ICamControllable
     {
         Vector3 offsetFrom;
