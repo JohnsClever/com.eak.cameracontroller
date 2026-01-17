@@ -1,0 +1,13 @@
+{
+    "name": "com.eak.cameracontroller",
+    "version": "1.0.0",
+    "displayName": "Eakrawi Camera Controller",
+    "description": "Module to Control camera",
+    "unity": "2021.3",
+    "author": {
+        "name": "Eakrawi Chaisuriya"
+    },
+    "dependencies": {
+        "com.unity.cinemachine": "3.1.5"
+    }
+}
